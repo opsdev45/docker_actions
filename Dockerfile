@@ -1,9 +1,18 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:17-jdk-slim
-
+FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
 
-COPY target/my-app.jar my-app.jar
+# Copy the pom.xml and the source code
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+COPY src ./src
 
-# Run the JAR file
-CMD ["java", "-jar", "my-app.jar"]
+# Build
+RUN mvn clean package -DskipTests
+
+
+FROM openjdk:17-slim
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
+CMD ["java", "-jar", "app.jar"]
