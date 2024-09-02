@@ -51,7 +51,8 @@ jobs:
         aws-region: us-east-1
 
     - name: Initialize Terraform
-      run: terraform init && terraform apply     
+      run: terraform init && terraform apply -input=false
+     
     
     
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
