@@ -21,8 +21,8 @@ resource "aws_instance" "ubuntu" {
   tags = {
    Name = "prod"
   }
-  
-  user_data = "${file("deploy_docker.sh")}"
+  # Run script for deploy docker image 
+  #user_data = "${file("deploy_docker.sh")}"
 }
 
 resource "aws_security_group" "instance_sg" {
