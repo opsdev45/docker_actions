@@ -27,7 +27,7 @@ jobs:
       uses: mickem/gh-action-bump-maven-version@v1.0.0
             
     - name: Build Docker image
-      run: docker build -t devops45of/app:test .
+      run: docker build -t devops45of/app:test -t devops45of/app:${{ github.sha }} .
 
     - name: Log in to DockerHub
       uses: docker/login-action@v2
@@ -37,7 +37,8 @@ jobs:
     
     
     - name: Push Docker image to DockerHub
-      run: docker build -t devops45of/app:test -t devops45of/app:${{ github.sha }} .
+      run: docker push devops45of/app --all-tags
+  
   
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v2
