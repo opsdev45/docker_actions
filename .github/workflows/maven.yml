@@ -51,7 +51,7 @@ jobs:
         aws-region: us-east-1
 
     - name: Initialize Terraform
-      run: terraform init && terraform apply -input=false
+      run: terraform init && terraform apply --auto-approve
      
     
     
